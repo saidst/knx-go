@@ -126,7 +126,30 @@ func unpackV32(data []byte, i *int32) error {
 		return ErrInvalidLength
 	}
 
-	*i = int32(data[1]) << 24 | int32(data[2]) << 16 | int32(data[3]) << 8 | int32(data[4])
+	*i = int32(data[1])<<24 | int32(data[2])<<16 | int32(data[3])<<8 | int32(data[4])
+
+	return nil
+}
+
+func packString(s string) []byte {
+	octets := 15
+	buffer := make([]byte, octets)
+
+	for i := 1; i < octets; i++ {
+		if i < len(s)+1 {
+			buffer[i] = byte(s[i-1])
+		}
+	}
+
+	return buffer
+}
+
+func unpackString(data []byte, s *string) error {
+	if len(data) > 15 {
+		return ErrInvalidLength
+	}
+
+	*s = string(data)
 
 	return nil
 }

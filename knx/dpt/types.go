@@ -468,3 +468,22 @@ func (d DPT_13015) Unit() string {
 func (d DPT_13015) String() string {
 	return fmt.Sprintf("%d kVARh", int32(d))
 }
+
+//// DPT_16000 represents DPT 16.000 / String
+type DPT_16000 string
+
+func (d DPT_16000) Pack() []byte {
+	return packString(string(d))
+}
+
+func (d *DPT_16000) Unpack(data []byte) error {
+	return unpackString(data, (*string)(d))
+}
+
+func (d DPT_16000) Unit() string {
+	return ""
+}
+
+func (d DPT_16000) String() string {
+	return string(d)
+}
